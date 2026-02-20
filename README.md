@@ -11,22 +11,36 @@ This project is a starter app for generating **Gran Turismo 7 setup recommendati
 
 ## What this MVP includes
 
-- A small FastAPI backend with:
-  - A recommendation engine that adapts setup advice to conditions + struggles.
+- A FastAPI backend with:
+  - `/api/recommend` for setup recommendations.
+  - `/api/health` for a quick service check.
   - A prompt builder so you can plug in a real LLM later.
-- A simple web UI to submit inputs and view recommended changes.
-- Unit tests for recommendation behavior.
+- A simple web UI to submit inputs and view recommendations.
+- Unit + API tests for recommendation behavior.
 
 ## Run locally
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m uvicorn app.main:app --reload
 ```
 
 Then open <http://127.0.0.1:8000>.
+
+## Quick check
+
+```bash
+curl http://127.0.0.1:8000/api/health
+```
+
+Expected response:
+
+```json
+{"status":"ok"}
+```
 
 ## API
 

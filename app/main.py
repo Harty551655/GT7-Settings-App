@@ -1,13 +1,15 @@
+from typing import List
+
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
-from typing import List
 
 from app.recommender import generate_recommendations
 
 
 app = FastAPI(title="GT7 AI Settings Assistant")
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 
 class RecommendationRequest(BaseModel):
@@ -20,12 +22,17 @@ class RecommendationRequest(BaseModel):
 
 
 @app.get("/")
-def index():
+def index() -> FileResponse:
     return FileResponse("app/static/index.html")
 
 
+@app.get("/api/health")
+def health() -> dict[str, str]:
+    return {"status": "ok"}
+
+
 @app.post("/api/recommend")
-def recommend(payload: RecommendationRequest):
+def recommend(payload: RecommendationRequest) -> dict:
     return generate_recommendations(
         car=payload.car,
         track=payload.track,
@@ -34,6 +41,3 @@ def recommend(payload: RecommendationRequest):
         custom_parts=payload.custom_parts,
         struggles=payload.struggles,
     )
-
-
-app.mount("/app/static", StaticFiles(directory="app/static"), name="static")
