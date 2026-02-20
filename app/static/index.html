@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GT7 AI Settings Assistant</title>
+    <link rel="stylesheet" href="/app/static/style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>GT7 AI Settings Assistant</h1>
+      <p>Get setup suggestions from your car, conditions, parts, and what you struggle with.</p>
+
+      <form id="setup-form">
+        <label>Car <input id="car" required placeholder="e.g. Nissan GT-R Nismo" /></label>
+        <label>Track <input id="track" required placeholder="e.g. Suzuka Circuit" /></label>
+        <label>Weather
+          <select id="weather">
+            <option>clear</option>
+            <option>rain</option>
+          </select>
+        </label>
+        <label>Time of day
+          <select id="time_of_day">
+            <option>day</option>
+            <option>night</option>
+          </select>
+        </label>
+        <label>Custom parts (comma-separated)
+          <input id="custom_parts" placeholder="racing suspension, high-rpm turbo" />
+        </label>
+        <label>Driver struggles (comma-separated)
+          <input id="struggles" placeholder="mid-corner understeer, traction on exit" />
+        </label>
+
+        <button type="submit">Generate setup</button>
+      </form>
+
+      <section id="output" class="hidden">
+        <h2>Recommendations</h2>
+        <ul id="recommendations"></ul>
+        <h3>LLM Prompt</h3>
+        <pre id="llm_prompt"></pre>
+      </section>
+    </main>
+
+    <script src="/app/static/app.js"></script>
+  </body>
+</html>
